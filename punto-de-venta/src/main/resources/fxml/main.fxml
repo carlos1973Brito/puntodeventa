@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane xmlns="http://javafx.com/javafx/21"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.pos.controller.MainController"
+            styleClass="main-root"
+            stylesheets="@/css/styles.css">
+
+    <!-- Barra superior -->
+    <top>
+        <HBox styleClass="top-bar" alignment="CENTER_LEFT" spacing="12">
+            <padding><Insets top="10" right="20" bottom="10" left="20"/></padding>
+            <Label text="🛒 Punto de Venta" styleClass="top-bar-title"/>
+            <Region HBox.hgrow="ALWAYS"/>
+            <Label fx:id="lblUsuario" styleClass="top-bar-user"/>
+            <Button text="Cerrar Sesión" onAction="#onCerrarSesion" styleClass="btn-secondary-sm"/>
+        </HBox>
+    </top>
+
+    <!-- Menú lateral -->
+    <left>
+        <VBox styleClass="sidebar" spacing="4" minWidth="200">
+            <padding><Insets top="16" right="8" bottom="16" left="8"/></padding>
+
+            <Label text="MENÚ" styleClass="sidebar-section-label"/>
+
+            <Button fx:id="btnVentas" text="🧾  Ventas" onAction="#onNavVentas"
+                    styleClass="sidebar-btn" maxWidth="Infinity"/>
+            <Button fx:id="btnHistorial" text="📋  Historial" onAction="#onNavHistorial"
+                    styleClass="sidebar-btn" maxWidth="Infinity"/>
+            <Button fx:id="btnProductos" text="📦  Productos" onAction="#onNavProductos"
+                    styleClass="sidebar-btn" maxWidth="Infinity"/>
+            <Button fx:id="btnInventario" text="📊  Inventario" onAction="#onNavInventario"
+                    styleClass="sidebar-btn" maxWidth="Infinity"/>
+            <Button fx:id="btnReportes" text="📈  Reportes" onAction="#onNavReportes"
+                    styleClass="sidebar-btn" maxWidth="Infinity"/>
+            <Button fx:id="btnImportar" text="📂  Importar Excel" onAction="#onNavImportar"
+                    styleClass="sidebar-btn" maxWidth="Infinity"/>
+
+            <Region VBox.vgrow="ALWAYS"/>
+
+            <!-- Solo visible para ADMIN -->
+            <Separator/>
+            <Button fx:id="btnUsuarios" text="👤  Usuarios" onAction="#onNavUsuarios"
+                    styleClass="sidebar-btn" maxWidth="Infinity"/>
+            <Button fx:id="btnConfiguracion" text="⚙  Configuración" onAction="#onNavConfiguracion"
+                    styleClass="sidebar-btn" maxWidth="Infinity"/>
+        </VBox>
+    </left>
+
+    <!-- Área de contenido principal -->
+    <center>
+        <StackPane fx:id="contentPane" styleClass="content-area">
+            <padding><Insets top="20" right="20" bottom="20" left="20"/></padding>
+            <Label text="Seleccione una opción del menú" styleClass="placeholder-label"/>
+        </StackPane>
+    </center>
+
+    <!-- Barra de estado -->
+    <bottom>
+        <HBox styleClass="status-bar" alignment="CENTER_LEFT" spacing="16">
+            <padding><Insets top="4" right="16" bottom="4" left="16"/></padding>
+            <Label fx:id="lblEstado" text="Listo" styleClass="status-label"/>
+            <Region HBox.hgrow="ALWAYS"/>
+            <Label fx:id="lblFecha" styleClass="status-label"/>
+        </HBox>
+    </bottom>
+</BorderPane>

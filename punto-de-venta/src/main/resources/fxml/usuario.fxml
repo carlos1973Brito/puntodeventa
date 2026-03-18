@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane xmlns="http://javafx.com/javafx/21"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.pos.controller.UsuarioController"
+            stylesheets="@/css/styles.css">
+
+    <top>
+        <VBox spacing="10">
+            <padding><Insets bottom="10"/></padding>
+            <HBox spacing="12" alignment="CENTER_LEFT">
+                <Label text="👤 Gestión de Usuarios" styleClass="section-title"/>
+                <Region HBox.hgrow="ALWAYS"/>
+                <Button text="+ Nuevo Usuario" onAction="#onNuevo" styleClass="btn-success"/>
+            </HBox>
+            <Label fx:id="lblInfo" text="" styleClass="info-label" visible="false" managed="false"/>
+        </VBox>
+    </top>
+
+    <center>
+        <TableView fx:id="tablaUsuarios" styleClass="table-view">
+            <columns>
+                <TableColumn fx:id="colUsername"      text="Usuario"         prefWidth="150"/>
+                <TableColumn fx:id="colNombre"        text="Nombre completo" prefWidth="220"/>
+                <TableColumn fx:id="colRol"           text="Rol"             prefWidth="120"/>
+                <TableColumn fx:id="colActivo"        text="Estado"          prefWidth="80"/>
+                <TableColumn fx:id="colDebeCambiar"   text="Cambiar pwd"     prefWidth="100"/>
+                <TableColumn fx:id="colAcciones"      text="Acciones"        prefWidth="220"/>
+            </columns>
+            <placeholder>
+                <Label text="No hay usuarios registrados." styleClass="placeholder-label"/>
+            </placeholder>
+        </TableView>
+    </center>
+</BorderPane>

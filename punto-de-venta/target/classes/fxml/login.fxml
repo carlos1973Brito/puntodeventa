@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<VBox xmlns="http://javafx.com/javafx/21"
+      xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="com.pos.controller.LoginController"
+      alignment="CENTER"
+      spacing="0"
+      styleClass="login-root"
+      stylesheets="@/css/styles.css">
+
+    <VBox alignment="CENTER" spacing="24" maxWidth="380" styleClass="login-card">
+        <padding><Insets top="40" right="40" bottom="40" left="40"/></padding>
+
+        <!-- Logo / Título -->
+        <VBox alignment="CENTER" spacing="6">
+            <Label text="🛒" style="-fx-font-size: 48px;"/>
+            <Label text="Punto de Venta" styleClass="login-title"/>
+            <Label text="Ingrese sus credenciales" styleClass="login-subtitle"/>
+        </VBox>
+
+        <!-- Mensaje de error -->
+        <Label fx:id="lblError" styleClass="error-label" wrapText="true"
+               maxWidth="300" visible="false" managed="false"/>
+
+        <!-- Formulario -->
+        <VBox spacing="12">
+            <Label text="Usuario" styleClass="field-label"/>
+            <TextField fx:id="txtUsuario" promptText="Nombre de usuario"
+                       styleClass="text-field-pos" onAction="#onLogin"/>
+
+            <Label text="Contraseña" styleClass="field-label"/>
+            <PasswordField fx:id="txtPassword" promptText="Contraseña"
+                           styleClass="text-field-pos" onAction="#onLogin"/>
+        </VBox>
+
+        <!-- Botón -->
+        <Button fx:id="btnLogin" text="Iniciar Sesión" onAction="#onLogin"
+                styleClass="btn-primary" maxWidth="Infinity" defaultButton="true"/>
+
+        <Label fx:id="lblVersion" text="v1.0" styleClass="version-label"/>
+    </VBox>
+</VBox>

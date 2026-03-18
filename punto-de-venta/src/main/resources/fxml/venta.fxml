@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane xmlns="http://javafx.com/javafx/21"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.pos.controller.VentaController"
+            stylesheets="@/css/styles.css">
+
+    <top>
+        <VBox spacing="10">
+            <padding><Insets top="0" right="0" bottom="10" left="0"/></padding>
+            <HBox spacing="12" alignment="CENTER_LEFT">
+                <Label text="🧾 Nueva Venta" styleClass="section-title"/>
+                <Region HBox.hgrow="ALWAYS"/>
+                <Label fx:id="lblVentaId" styleClass="section-subtitle"/>
+            </HBox>
+
+            <!-- Barra de búsqueda de producto -->
+            <HBox spacing="8" alignment="CENTER_LEFT">
+                <TextField fx:id="txtBusqueda" promptText="Código de barras o nombre del producto..."
+                           styleClass="text-field-pos" HBox.hgrow="ALWAYS"
+                           onAction="#onAgregarProducto"/>
+                <TextField fx:id="txtCantidad" promptText="Cant." styleClass="text-field-pos"
+                           prefWidth="70" onAction="#onAgregarProducto"/>
+                <Button text="Agregar" onAction="#onAgregarProducto" styleClass="btn-primary"
+                        prefWidth="100"/>
+            </HBox>
+
+            <Label fx:id="lblBusquedaError" styleClass="error-label"
+                   visible="false" managed="false"/>
+        </VBox>
+    </top>
+
+    <center>
+        <!-- Tabla de líneas de venta -->
+        <TableView fx:id="tablaLineas" styleClass="table-view">
+            <columns>
+                <TableColumn fx:id="colProducto" text="Producto" prefWidth="280"/>
+                <TableColumn fx:id="colPrecio" text="Precio Unit." prefWidth="110"/>
+                <TableColumn fx:id="colCantidad" text="Cant." prefWidth="70"/>
+                <TableColumn fx:id="colSubtotal" text="Subtotal" prefWidth="110"/>
+                <TableColumn fx:id="colAccion" text="" prefWidth="80"/>
+            </columns>
+            <placeholder>
+                <Label text="Sin productos. Busque un artículo para agregar." styleClass="placeholder-label"/>
+            </placeholder>
+        </TableView>
+    </center>
+
+    <bottom>
+        <VBox spacing="10">
+            <padding><Insets top="12" right="0" bottom="0" left="0"/></padding>
+
+            <!-- Total -->
+            <HBox alignment="CENTER_RIGHT" spacing="12">
+                <Label text="TOTAL:" style="-fx-font-size: 20px; -fx-font-weight: bold;"/>
+                <Label fx:id="lblTotal" text="0.00"
+                       style="-fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: #1a1a2e;"/>
+            </HBox>
+
+            <!-- Botones de acción -->
+            <HBox spacing="10" alignment="CENTER_RIGHT">
+                <Button text="🗑 Cancelar Venta" onAction="#onCancelarVenta"
+                        styleClass="btn-danger" prefWidth="160"/>
+                <Button text="💳 Cobrar" onAction="#onCobrar"
+                        styleClass="btn-success" prefWidth="160"
+                        style="-fx-font-size: 15px; -fx-pref-height: 44px;"/>
+            </HBox>
+        </VBox>
+    </bottom>
+</BorderPane>

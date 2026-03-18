@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane xmlns="http://javafx.com/javafx/21"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.pos.controller.ImportarController"
+            stylesheets="@/css/styles.css">
+
+    <top>
+        <VBox spacing="10">
+            <padding><Insets bottom="10"/></padding>
+            <Label text="📥 Importar desde Excel" styleClass="section-title"/>
+
+            <!-- Selector de archivo -->
+            <HBox spacing="10" alignment="CENTER_LEFT">
+                <TextField fx:id="txtRutaArchivo" prefWidth="400"
+                           promptText="Selecciona un archivo .xlsx o .xls..."
+                           editable="false"/>
+                <Button text="Examinar..." onAction="#onSeleccionarArchivo" styleClass="btn-secondary"/>
+                <Button text="Previsualizar" fx:id="btnPrevisualizar"
+                        onAction="#onPrevisualizar" styleClass="btn-primary" disable="true"/>
+            </HBox>
+
+            <!-- Resumen de previsualización -->
+            <HBox fx:id="hboxResumenPreview" spacing="20" alignment="CENTER_LEFT" visible="false" managed="false">
+                <Label fx:id="lblProductosNuevos" text="Productos nuevos: 0" styleClass="badge-info"/>
+                <Label fx:id="lblVentasARegistrar" text="Ventas a registrar: 0" styleClass="badge-success"/>
+                <Label fx:id="lblFilasConError" text="Filas con error: 0" styleClass="badge-warning"/>
+            </HBox>
+        </VBox>
+    </top>
+
+    <center>
+        <VBox spacing="10">
+            <padding><Insets top="5" bottom="5"/></padding>
+
+            <!-- Tabla de previsualización -->
+            <Label text="Previsualización de datos:" styleClass="section-subtitle"/>
+            <TableView fx:id="tablaPreview" VBox.vgrow="ALWAYS" styleClass="table-view">
+                <columns>
+                    <TableColumn fx:id="colEstado" text="" prefWidth="30"/>
+                    <TableColumn fx:id="colArticulo" text="Artículo" prefWidth="220"/>
+                    <TableColumn fx:id="colPrecio" text="Precio" prefWidth="100"/>
+                    <TableColumn fx:id="colFechaHora" text="Fecha y Hora" prefWidth="160"/>
+                    <TableColumn fx:id="colError" text="Error" prefWidth="300"/>
+                </columns>
+                <placeholder>
+                    <Label text="Selecciona un archivo Excel y haz clic en 'Previsualizar'"/>
+                </placeholder>
+            </TableView>
+
+            <!-- Errores de formato de archivo -->
+            <Label text="Errores de formato:" styleClass="section-subtitle"
+                   fx:id="lblTituloErrores" visible="false" managed="false"/>
+            <TextArea fx:id="txtErrores" prefHeight="80" editable="false"
+                      visible="false" managed="false"
+                      style="-fx-font-family: monospace; -fx-font-size: 11px;"/>
+        </VBox>
+    </center>
+
+    <bottom>
+        <VBox spacing="8">
+            <padding><Insets top="10"/></padding>
+
+            <!-- Resultado de importación -->
+            <TextArea fx:id="txtResultado" prefHeight="70" editable="false"
+                      visible="false" managed="false"
+                      style="-fx-font-family: monospace; -fx-font-size: 12px; -fx-text-fill: #155724; -fx-background-color: #d4edda;"/>
+
+            <!-- Botones de acción -->
+            <HBox spacing="10" alignment="CENTER_RIGHT">
+                <Button text="Limpiar" onAction="#onLimpiar" styleClass="btn-secondary"/>
+                <Button text="✔ Confirmar Importación" fx:id="btnConfirmar"
+                        onAction="#onConfirmarImportacion" styleClass="btn-primary" disable="true"/>
+            </HBox>
+        </VBox>
+    </bottom>
+</BorderPane>

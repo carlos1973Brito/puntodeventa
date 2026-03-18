@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.chart.*?>
+
+<BorderPane xmlns="http://javafx.com/javafx/21"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.pos.controller.HistorialController"
+            stylesheets="@/css/styles.css">
+
+    <top>
+        <VBox spacing="8">
+            <padding><Insets bottom="10"/></padding>
+            <HBox spacing="12" alignment="CENTER_LEFT">
+                <Label text="📋 Historial de Ventas" styleClass="section-title"/>
+            </HBox>
+        </VBox>
+    </top>
+
+    <center>
+        <TabPane tabClosingPolicy="UNAVAILABLE">
+
+            <!-- Tab 1: Historial general + devoluciones -->
+            <Tab text="Ventas">
+                <content>
+                    <BorderPane>
+                        <top>
+                            <HBox spacing="8" alignment="CENTER_LEFT">
+                                <padding><Insets bottom="8"/></padding>
+                                <Label text="Desde:"/>
+                                <DatePicker fx:id="dpDesde" prefWidth="140"/>
+                                <Label text="Hasta:"/>
+                                <DatePicker fx:id="dpHasta" prefWidth="140"/>
+                                <Button text="🔍 Buscar" onAction="#onBuscar" styleClass="btn-primary"/>
+                                <Region HBox.hgrow="ALWAYS"/>
+                                <Button text="🖨 Reimprimir" onAction="#onReimprimir" styleClass="btn-secondary"/>
+                                <Button text="↩ Devolver seleccionada" onAction="#onDevolver" styleClass="btn-danger"/>
+                            </HBox>
+                        </top>
+                        <center>
+                            <TableView fx:id="tablaVentas" styleClass="table-view">
+                                <columns>
+                                    <TableColumn fx:id="colId" text="#" prefWidth="60"/>
+                                    <TableColumn fx:id="colFecha" text="Fecha" prefWidth="150"/>
+                                    <TableColumn fx:id="colCajero" text="Cajero" prefWidth="150"/>
+                                    <TableColumn fx:id="colCliente" text="Cliente" prefWidth="130"/>
+                                    <TableColumn fx:id="colTotal" text="Total" prefWidth="100"/>
+                                    <TableColumn fx:id="colMetodo" text="Método" prefWidth="110"/>
+                                    <TableColumn fx:id="colEstado" text="Estado" prefWidth="100"/>
+                                    <TableColumn fx:id="colSaldo" text="Saldo Pend." prefWidth="100"/>
+                                </columns>
+                                <placeholder>
+                                    <Label text="Sin ventas en el rango seleccionado." styleClass="placeholder-label"/>
+                                </placeholder>
+                            </TableView>
+                        </center>
+                    </BorderPane>
+                </content>
+            </Tab>
+
+            <!-- Tab 2: Créditos pendientes -->
+            <Tab text="Créditos Pendientes">
+                <content>
+                    <BorderPane>
+                        <top>
+                            <HBox spacing="8" alignment="CENTER_LEFT">
+                                <padding><Insets bottom="8"/></padding>
+                                <Button text="🔄 Actualizar" onAction="#onActualizarCreditos" styleClass="btn-secondary"/>
+                                <Region HBox.hgrow="ALWAYS"/>
+                                <Button text="💰 Registrar Abono" onAction="#onAbonar" styleClass="btn-success"/>
+                            </HBox>
+                        </top>
+                        <center>
+                            <TableView fx:id="tablaCreditos" styleClass="table-view">
+                                <columns>
+                                    <TableColumn fx:id="colCrId" text="#" prefWidth="60"/>
+                                    <TableColumn fx:id="colCrFecha" text="Fecha" prefWidth="150"/>
+                                    <TableColumn fx:id="colCrCliente" text="Cliente" prefWidth="180"/>
+                                    <TableColumn fx:id="colCrTotal" text="Total" prefWidth="100"/>
+                                    <TableColumn fx:id="colCrPagado" text="Pagado" prefWidth="100"/>
+                                    <TableColumn fx:id="colCrSaldo" text="Saldo" prefWidth="100"/>
+                                </columns>
+                                <placeholder>
+                                    <Label text="Sin créditos pendientes." styleClass="placeholder-label"/>
+                                </placeholder>
+                            </TableView>
+                        </center>
+                    </BorderPane>
+                </content>
+            </Tab>
+
+            <!-- Tab 3: Corte de caja -->
+            <Tab text="Corte de Caja">
+                <content>
+                    <BorderPane>
+                        <top>
+                            <HBox spacing="8" alignment="CENTER_LEFT">
+                                <padding><Insets bottom="8"/></padding>
+                                <Label text="Fecha:"/>
+                                <DatePicker fx:id="dpCorte" prefWidth="140"/>
+                                <Button text="📊 Generar Corte" onAction="#onGenerarCorte" styleClass="btn-primary"/>
+                            </HBox>
+                        </top>
+                        <center>
+                            <SplitPane orientation="VERTICAL" dividerPositions="0.45">
+                                <TextArea fx:id="txtCorte" editable="false"
+                                          style="-fx-font-family: monospace; -fx-font-size: 13px;"/>
+                                <BarChart fx:id="graficaVentas" animated="false">
+                                    <xAxis>
+                                        <CategoryAxis fx:id="ejeX"/>
+                                    </xAxis>
+                                    <yAxis>
+                                        <NumberAxis fx:id="ejeY"/>
+                                    </yAxis>
+                                </BarChart>
+                            </SplitPane>
+                        </center>
+                    </BorderPane>
+                </content>
+            </Tab>
+
+        </TabPane>
+    </center>
+</BorderPane>

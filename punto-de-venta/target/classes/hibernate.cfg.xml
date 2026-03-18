@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC
+        "-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+    <session-factory>
+        <!-- Las propiedades de conexión se sobreescriben en DatabaseConfig según config.properties -->
+        <!-- Valores por defecto para SQLite -->
+        <property name="hibernate.connection.driver_class">org.sqlite.JDBC</property>
+        <property name="hibernate.connection.url">jdbc:sqlite:${user.home}/PuntoDeVenta/pos.db</property>
+        <property name="hibernate.dialect">org.hibernate.community.dialect.SQLiteDialect</property>
+        <property name="hibernate.hbm2ddl.auto">update</property>
+        <property name="hibernate.show_sql">false</property>
+        <property name="hibernate.format_sql">false</property>
+        <property name="hibernate.connection.pool_size">1</property>
+
+        <!-- Configuración de contexto de sesión -->
+        <property name="hibernate.current_session_context_class">thread</property>
+
+        <!-- Las entidades se registran programáticamente en DatabaseConfig -->
+    </session-factory>
+</hibernate-configuration>

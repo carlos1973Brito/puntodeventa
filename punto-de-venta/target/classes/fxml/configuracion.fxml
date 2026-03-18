@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<ScrollPane fitToWidth="true"
+            xmlns="http://javafx.com/javafx/21"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.pos.controller.ConfiguracionController"
+            stylesheets="@/css/styles.css">
+
+    <VBox spacing="20" maxWidth="600">
+        <padding><Insets top="20" right="30" bottom="20" left="30"/></padding>
+
+        <Label text="⚙ Configuración" styleClass="section-title"/>
+
+        <!-- ── Sección Impresora ── -->
+        <VBox spacing="10" styleClass="card">
+            <padding><Insets top="16" right="16" bottom="16" left="16"/></padding>
+            <Label text="Impresora Térmica" style="-fx-font-size: 14px; -fx-font-weight: bold;"/>
+
+            <GridPane hgap="12" vgap="10">
+                <Label text="Impresora:" GridPane.columnIndex="0" GridPane.rowIndex="0"/>
+                <HBox spacing="8" GridPane.columnIndex="1" GridPane.rowIndex="0">
+                    <ComboBox fx:id="cmbImpresora" prefWidth="300"
+                              promptText="Seleccionar impresora..."/>
+                    <Button text="🔄" onAction="#onRefrescarImpresoras"
+                            styleClass="btn-secondary" prefWidth="36"
+                            style="-fx-font-size: 14px;"/>
+                </HBox>
+
+                <Label text="Ancho papel:" GridPane.columnIndex="0" GridPane.rowIndex="1"/>
+                <ComboBox fx:id="cmbAncho" prefWidth="200"
+                          GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+            </GridPane>
+
+            <HBox spacing="10">
+                <Button fx:id="btnPrueba" text="🖨 Imprimir Prueba"
+                        onAction="#onPrueba" styleClass="btn-secondary"/>
+            </HBox>
+        </VBox>
+
+        <!-- ── Sección Negocio ── -->
+        <VBox spacing="10" styleClass="card">
+            <padding><Insets top="16" right="16" bottom="16" left="16"/></padding>
+            <Label text="Datos del Negocio (aparecen en el ticket)"
+                   style="-fx-font-size: 14px; -fx-font-weight: bold;"/>
+
+            <GridPane hgap="12" vgap="10">
+                <Label text="Nombre:" GridPane.columnIndex="0" GridPane.rowIndex="0"/>
+                <TextField fx:id="txtNombre" prefWidth="300"
+                           promptText="Nombre de tu negocio"
+                           GridPane.columnIndex="1" GridPane.rowIndex="0"/>
+
+                <Label text="Dirección:" GridPane.columnIndex="0" GridPane.rowIndex="1"/>
+                <TextField fx:id="txtDireccion" prefWidth="300"
+                           promptText="Calle, colonia, ciudad"
+                           GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+
+                <Label text="Teléfono:" GridPane.columnIndex="0" GridPane.rowIndex="2"/>
+                <TextField fx:id="txtTelefono" prefWidth="300"
+                           promptText="55 1234 5678"
+                           GridPane.columnIndex="1" GridPane.rowIndex="2"/>
+
+                <Label text="Mensaje pie:" GridPane.columnIndex="0" GridPane.rowIndex="3"/>
+                <TextField fx:id="txtMensaje" prefWidth="300"
+                           promptText="¡Gracias por su compra!"
+                           GridPane.columnIndex="1" GridPane.rowIndex="3"/>
+            </GridPane>
+        </VBox>
+
+        <!-- ── Botón guardar + estado ── -->
+        <HBox spacing="16" alignment="CENTER_LEFT">
+            <Button text="💾 Guardar Configuración" onAction="#onGuardar"
+                    styleClass="btn-primary" prefWidth="220"
+                    style="-fx-pref-height: 40px; -fx-font-size: 14px;"/>
+            <Label fx:id="lblEstado"/>
+        </HBox>
+
+    </VBox>
+</ScrollPane>

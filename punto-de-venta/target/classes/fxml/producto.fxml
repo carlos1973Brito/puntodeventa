@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane xmlns="http://javafx.com/javafx/21"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.pos.controller.ProductoController"
+            stylesheets="@/css/styles.css">
+
+    <top>
+        <VBox spacing="10">
+            <padding><Insets bottom="10"/></padding>
+            <HBox spacing="12" alignment="CENTER_LEFT">
+                <Label text="📦 Productos" styleClass="section-title"/>
+                <Region HBox.hgrow="ALWAYS"/>
+                <Button text="+ Nuevo Producto" onAction="#onNuevo" styleClass="btn-primary"/>
+            </HBox>
+            <HBox spacing="8" alignment="CENTER_LEFT">
+                <TextField fx:id="txtBusqueda" promptText="Buscar por nombre o código..."
+                           styleClass="text-field-pos" prefWidth="300" onAction="#onBuscar"/>
+                <Button text="Buscar" onAction="#onBuscar" styleClass="btn-secondary"/>
+                <Button text="Mostrar todos" onAction="#onMostrarTodos" styleClass="btn-secondary"/>
+                <Label fx:id="lblAlertaStock" styleClass="badge-danger"
+                       visible="false" managed="false"/>
+            </HBox>
+        </VBox>
+    </top>
+
+    <center>
+        <TableView fx:id="tablaProductos" styleClass="table-view">
+            <columns>
+                <TableColumn fx:id="colNombre" text="Nombre" prefWidth="220"/>
+                <TableColumn fx:id="colCodigo" text="Código" prefWidth="120"/>
+                <TableColumn fx:id="colCategoria" text="Categoría" prefWidth="110"/>
+                <TableColumn fx:id="colPrecioVenta" text="P. Venta" prefWidth="90"/>
+                <TableColumn fx:id="colPrecioCosto" text="P. Costo" prefWidth="90"/>
+                <TableColumn fx:id="colStock" text="Stock" prefWidth="70"/>
+                <TableColumn fx:id="colStockMin" text="Mín." prefWidth="60"/>
+                <TableColumn fx:id="colActivo" text="Activo" prefWidth="60"/>
+                <TableColumn fx:id="colAcciones" text="Acciones" prefWidth="130"/>
+            </columns>
+            <placeholder>
+                <Label text="No hay productos." styleClass="placeholder-label"/>
+            </placeholder>
+        </TableView>
+    </center>
+</BorderPane>

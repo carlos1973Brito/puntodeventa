@@ -1,0 +1,282 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
+             https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.pos</groupId>
+    <artifactId>punto-de-venta</artifactId>
+    <version>1.0.0</version>
+    <packaging>jar</packaging>
+
+    <name>Sistema Punto de Venta</name>
+    <description>Sistema POS de escritorio con JavaFX y Hibernate</description>
+
+    <properties>
+        <java.version>17</java.version>
+        <maven.compiler.source>17</maven.compiler.source>
+        <maven.compiler.target>17</maven.compiler.target>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <javafx.version>21</javafx.version>
+        <hibernate.version>6.4.4.Final</hibernate.version>
+        <junit.version>5.10.2</junit.version>
+        <jqwik.version>1.8.4</jqwik.version>
+    </properties>
+
+    <dependencies>
+        <!-- JavaFX -->
+        <dependency>
+            <groupId>org.openjfx</groupId>
+            <artifactId>javafx-controls</artifactId>
+            <version>${javafx.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.openjfx</groupId>
+            <artifactId>javafx-fxml</artifactId>
+            <version>${javafx.version}</version>
+        </dependency>
+
+        <!-- Hibernate ORM -->
+        <dependency>
+            <groupId>org.hibernate.orm</groupId>
+            <artifactId>hibernate-core</artifactId>
+            <version>${hibernate.version}</version>
+        </dependency>
+
+        <!-- SQLite JDBC -->
+        <dependency>
+            <groupId>org.xerial</groupId>
+            <artifactId>sqlite-jdbc</artifactId>
+            <version>3.45.3.0</version>
+        </dependency>
+
+        <!-- Hibernate Community Dialects (SQLite dialect) -->
+        <dependency>
+            <groupId>org.hibernate.orm</groupId>
+            <artifactId>hibernate-community-dialects</artifactId>
+            <version>${hibernate.version}</version>
+        </dependency>
+
+        <!-- Apache POI (Excel) -->
+        <dependency>
+            <groupId>org.apache.poi</groupId>
+            <artifactId>poi-ooxml</artifactId>
+            <version>5.2.5</version>
+        </dependency>
+
+        <!-- OpenPDF -->
+        <dependency>
+            <groupId>com.github.librepdf</groupId>
+            <artifactId>openpdf</artifactId>
+            <version>1.3.43</version>
+        </dependency>
+
+        <!-- BCrypt -->
+        <dependency>
+            <groupId>org.mindrot</groupId>
+            <artifactId>jbcrypt</artifactId>
+            <version>0.4</version>
+        </dependency>
+
+        <!-- SLF4J + Logback -->
+        <dependency>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-classic</artifactId>
+            <version>1.4.14</version>
+        </dependency>
+
+        <!-- H2 (test) -->
+        <dependency>
+            <groupId>com.h2database</groupId>
+            <artifactId>h2</artifactId>
+            <version>2.2.224</version>
+            <scope>test</scope>
+        </dependency>
+
+        <!-- JUnit 5 -->
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter</artifactId>
+            <version>${junit.version}</version>
+            <scope>test</scope>
+        </dependency>
+
+        <!-- jqwik (property-based testing) -->
+        <dependency>
+            <groupId>net.jqwik</groupId>
+            <artifactId>jqwik</artifactId>
+            <version>${jqwik.version}</version>
+            <scope>test</scope>
+        </dependency>
+
+        <!-- Mockito -->
+        <dependency>
+            <groupId>org.mockito</groupId>
+            <artifactId>mockito-core</artifactId>
+            <version>5.11.0</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.mockito</groupId>
+            <artifactId>mockito-junit-jupiter</artifactId>
+            <version>5.11.0</version>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <!-- Compiler -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.13.0</version>
+                <configuration>
+                    <source>17</source>
+                    <target>17</target>
+                    <encoding>UTF-8</encoding>
+                </configuration>
+            </plugin>
+
+            <!-- Surefire (JUnit 5 + jqwik) -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>3.2.5</version>
+                <configuration>
+                    <includes>
+                        <include>**/*Test.java</include>
+                        <include>**/*Tests.java</include>
+                        <include>**/*Properties.java</include>
+                    </includes>
+                </configuration>
+            </plugin>
+
+            <!-- JavaFX Maven Plugin -->
+            <plugin>
+                <groupId>org.openjfx</groupId>
+                <artifactId>javafx-maven-plugin</artifactId>
+                <version>0.0.8</version>
+                <configuration>
+                    <mainClass>com.pos.MainApp</mainClass>
+                    <options>
+                        <option>-Dlogback.configurationFile=${project.basedir}/src/main/resources/logback.xml</option>
+                    </options>
+                </configuration>
+            </plugin>
+
+            <!-- Maven Shade Plugin: genera fat JAR con todas las dependencias -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-shade-plugin</artifactId>
+                <version>3.5.2</version>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>shade</goal>
+                        </goals>
+                        <configuration>
+                            <finalName>${project.artifactId}-${project.version}-fat</finalName>
+                            <transformers>
+                                <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
+                                    <mainClass>com.pos.MainApp</mainClass>
+                                </transformer>
+                                <!-- Combina archivos de servicio META-INF/services (Hibernate, etc.) -->
+                                <transformer implementation="org.apache.maven.plugins.shade.resource.ServicesResourceTransformer"/>
+                                <!-- Combina NOTICE y LICENSE de dependencias -->
+                                <transformer implementation="org.apache.maven.plugins.shade.resource.ApacheLicenseResourceTransformer"/>
+                            </transformers>
+                            <filters>
+                                <filter>
+                                    <!-- Excluir firmas digitales de JARs firmados para evitar SecurityException -->
+                                    <artifact>*:*</artifact>
+                                    <excludes>
+                                        <exclude>META-INF/*.SF</exclude>
+                                        <exclude>META-INF/*.DSA</exclude>
+                                        <exclude>META-INF/*.RSA</exclude>
+                                        <exclude>META-INF/MANIFEST.MF</exclude>
+                                    </excludes>
+                                </filter>
+                            </filters>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <!-- jpackage Maven Plugin: genera instalador .exe para Windows 10/11 -->
+            <!--
+                REQUISITOS PREVIOS (ejecutar antes de mvn jpackage:jpackage):
+                  1. mvn package   (genera el fat JAR en target/)
+                  2. JDK 17+ en PATH (jpackage viene incluido en el JDK)
+                  3. WiX Toolset 3.x instalado (https://wixtoolset.org/) para generar .exe/.msi
+
+                COMANDO DE EMPAQUETADO:
+                  mvn package jpackage:jpackage
+
+                El instalador .exe se genera en: target/dist/
+            -->
+            <plugin>
+                <groupId>org.panteleyev</groupId>
+                <artifactId>jpackage-maven-plugin</artifactId>
+                <version>1.6.5</version>
+                <configuration>
+                    <!-- Nombre de la aplicación instalada -->
+                    <name>PuntoDeVenta</name>
+                    <appVersion>${project.version}</appVersion>
+                    <vendor>POS System</vendor>
+                    <description>Sistema de Punto de Venta para Windows</description>
+                    <copyright>Copyright 2024 POS System</copyright>
+
+                    <!-- Tipo de instalador: exe para Windows 10/11 -->
+                    <type>EXE</type>
+
+                    <!-- Directorio de salida del instalador -->
+                    <destination>${project.build.directory}/dist</destination>
+
+                    <!-- Directorio que contiene el fat JAR generado por maven-shade-plugin -->
+                    <input>${project.build.directory}</input>
+
+                    <!-- Fat JAR principal (generado por maven-shade-plugin) -->
+                    <mainJar>${project.artifactId}-${project.version}-fat.jar</mainJar>
+
+                    <!-- Clase principal -->
+                    <mainClass>com.pos.MainApp</mainClass>
+
+                    <!--
+                        JRE embebido: jpackage detecta automáticamente el JDK en uso
+                        y lo incluye en el instalador. No se requiere Java instalado
+                        en el equipo destino.
+                        Si se desea usar un runtime personalizado (jlink), descomentar:
+                        <runtimeImage>target/runtime</runtimeImage>
+                    -->
+
+                    <!-- Opciones de JVM para la aplicación empaquetada -->
+                    <javaOptions>
+                        <option>-Dfile.encoding=UTF-8</option>
+                        <option>-Duser.language=es</option>
+                        <!-- Módulos JavaFX requeridos en tiempo de ejecución -->
+                        <option>--add-modules=javafx.controls,javafx.fxml</option>
+                        <!-- Abre módulos necesarios para Hibernate/reflection -->
+                        <option>--add-opens=java.base/java.lang=ALL-UNNAMED</option>
+                        <option>--add-opens=java.base/java.util=ALL-UNNAMED</option>
+                        <option>--add-opens=java.base/java.io=ALL-UNNAMED</option>
+                    </javaOptions>
+
+                    <!-- Opciones específicas del instalador Windows -->
+                    <!-- Permite al usuario elegir el directorio de instalación -->
+                    <winDirChooser>true</winDirChooser>
+                    <!-- Crea entrada en el menú Inicio -->
+                    <winMenu>true</winMenu>
+                    <!-- Crea acceso directo en el escritorio -->
+                    <winShortcut>true</winShortcut>
+                    <!-- Instala para todos los usuarios del sistema -->
+                    <winPerUserInstall>false</winPerUserInstall>
+                    <!-- Nombre del grupo en el menú Inicio -->
+                    <winMenuGroup>PuntoDeVenta</winMenuGroup>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+</project>

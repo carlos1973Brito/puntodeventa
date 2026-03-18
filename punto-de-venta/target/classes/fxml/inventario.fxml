@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane xmlns="http://javafx.com/javafx/21"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.pos.controller.InventarioController"
+            stylesheets="@/css/styles.css">
+
+    <top>
+        <VBox spacing="10">
+            <padding><Insets bottom="10"/></padding>
+            <HBox spacing="12" alignment="CENTER_LEFT">
+                <Label text="📊 Inventario" styleClass="section-title"/>
+                <Region HBox.hgrow="ALWAYS"/>
+                <Button text="+ Entrada de Mercancía" onAction="#onEntrada" styleClass="btn-success"/>
+                <Button text="⚙ Ajuste Manual" onAction="#onAjuste" styleClass="btn-secondary"/>
+            </HBox>
+        </VBox>
+    </top>
+
+    <center>
+        <TabPane tabClosingPolicy="UNAVAILABLE">
+
+            <!-- Pestaña 1: Stock actual por producto -->
+            <Tab text="Stock Actual">
+                <content>
+                    <BorderPane>
+                        <top>
+                            <HBox spacing="8" alignment="CENTER_LEFT">
+                                <padding><Insets bottom="8"/></padding>
+                                <TextField fx:id="txtFiltroStock" promptText="Buscar producto..."
+                                           prefWidth="260" onKeyReleased="#onFiltrarStock"/>
+                                <Button text="🔄 Actualizar" onAction="#onActualizarStock" styleClass="btn-secondary"/>
+                            </HBox>
+                        </top>
+                        <center>
+                            <TableView fx:id="tablaStock" styleClass="table-view">
+                                <columns>
+                                    <TableColumn fx:id="colStockNombre" text="Producto" prefWidth="250"/>
+                                    <TableColumn fx:id="colStockCategoria" text="Categoría" prefWidth="150"/>
+                                    <TableColumn fx:id="colStockActual" text="Stock Actual" prefWidth="110"/>
+                                    <TableColumn fx:id="colStockMinimo" text="Stock Mínimo" prefWidth="110"/>
+                                    <TableColumn fx:id="colStockPrecio" text="Precio Venta" prefWidth="120"/>
+                                    <TableColumn fx:id="colStockEstado" text="Estado" prefWidth="100"/>
+                                </columns>
+                                <placeholder>
+                                    <Label text="No hay productos." styleClass="placeholder-label"/>
+                                </placeholder>
+                            </TableView>
+                        </center>
+                    </BorderPane>
+                </content>
+            </Tab>
+
+            <!-- Pestaña 2: Historial de movimientos -->
+            <Tab text="Movimientos">
+                <content>
+                    <BorderPane>
+                        <top>
+                            <HBox spacing="8" alignment="CENTER_LEFT">
+                                <padding><Insets bottom="8"/></padding>
+                                <Label text="Producto:"/>
+                                <ComboBox fx:id="cmbProducto" promptText="Seleccionar producto..."
+                                          prefWidth="280" onAction="#onFiltrarProducto"/>
+                                <Button text="Ver todos" onAction="#onVerTodos" styleClass="btn-secondary"/>
+                            </HBox>
+                        </top>
+                        <center>
+                            <TableView fx:id="tablaMovimientos" styleClass="table-view">
+                                <columns>
+                                    <TableColumn fx:id="colFecha" text="Fecha" prefWidth="150"/>
+                                    <TableColumn fx:id="colProductoMov" text="Producto" prefWidth="200"/>
+                                    <TableColumn fx:id="colTipo" text="Tipo" prefWidth="100"/>
+                                    <TableColumn fx:id="colCantidad" text="Cantidad" prefWidth="80"/>
+                                    <TableColumn fx:id="colStockAnterior" text="Stock Ant." prefWidth="90"/>
+                                    <TableColumn fx:id="colStockNuevo" text="Stock Nuevo" prefWidth="90"/>
+                                    <TableColumn fx:id="colJustificacion" text="Justificación" prefWidth="200"/>
+                                    <TableColumn fx:id="colUsuarioMov" text="Usuario" prefWidth="120"/>
+                                </columns>
+                                <placeholder>
+                                    <Label text="Sin movimientos de stock." styleClass="placeholder-label"/>
+                                </placeholder>
+                            </TableView>
+                        </center>
+                    </BorderPane>
+                </content>
+            </Tab>
+
+        </TabPane>
+    </center>
+</BorderPane>

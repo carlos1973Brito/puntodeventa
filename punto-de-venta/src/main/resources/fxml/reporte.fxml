@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane xmlns="http://javafx.com/javafx/21"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.pos.controller.ReporteController"
+            stylesheets="@/css/styles.css">
+
+    <top>
+        <VBox spacing="10">
+            <padding><Insets bottom="10"/></padding>
+            <Label text="📈 Reportes" styleClass="section-title"/>
+
+            <HBox spacing="12" alignment="CENTER_LEFT">
+                <RadioButton text="Ventas" fx:id="rbVentas" selected="true"/>
+                <RadioButton text="Inventario" fx:id="rbInventario"/>
+
+                <Separator orientation="VERTICAL"/>
+
+                <Label text="Desde:" fx:id="lblDesde"/>
+                <DatePicker fx:id="dpDesde" prefWidth="140"/>
+                <Label text="Hasta:" fx:id="lblHasta"/>
+                <DatePicker fx:id="dpHasta" prefWidth="140"/>
+
+                <Button text="Generar" onAction="#onGenerar" styleClass="btn-primary"/>
+                <Button text="📄 Exportar PDF" onAction="#onExportarPDF" styleClass="btn-secondary"
+                        fx:id="btnExportar" disable="true"/>
+            </HBox>
+
+            <Label fx:id="lblResumen" styleClass="section-subtitle"/>
+        </VBox>
+    </top>
+
+    <center>
+        <TabPane fx:id="tabPane" tabClosingPolicy="UNAVAILABLE">
+            <Tab text="Resumen" fx:id="tabResumen">
+                <content>
+                    <TextArea fx:id="txtResumen" editable="false"
+                              style="-fx-font-family: monospace; -fx-font-size: 13px;"/>
+                </content>
+            </Tab>
+            <Tab text="Más Vendidos" fx:id="tabMasVendidos">
+                <content>
+                    <TableView fx:id="tablaMasVendidos" styleClass="table-view">
+                        <columns>
+                            <TableColumn fx:id="colMvProducto" text="Producto" prefWidth="280"/>
+                            <TableColumn fx:id="colMvCantidad" text="Cantidad" prefWidth="100"/>
+                            <TableColumn fx:id="colMvTotal" text="Total" prefWidth="120"/>
+                        </columns>
+                    </TableView>
+                </content>
+            </Tab>
+            <Tab text="Inventario" fx:id="tabInventario">
+                <content>
+                    <TableView fx:id="tablaInventario" styleClass="table-view">
+                        <columns>
+                            <TableColumn fx:id="colInvNombre" text="Producto" prefWidth="220"/>
+                            <TableColumn fx:id="colInvStock" text="Stock" prefWidth="80"/>
+                            <TableColumn fx:id="colInvCosto" text="P. Costo" prefWidth="100"/>
+                            <TableColumn fx:id="colInvVenta" text="P. Venta" prefWidth="100"/>
+                            <TableColumn fx:id="colInvValor" text="Valor Total" prefWidth="120"/>
+                            <TableColumn fx:id="colInvEstado" text="Estado" prefWidth="100"/>
+                        </columns>
+                    </TableView>
+                </content>
+            </Tab>
+        </TabPane>
+    </center>
+</BorderPane>
