@@ -7,6 +7,13 @@ import com.pos.model.enums.MetodoPago;
 import java.math.BigDecimal;
 import java.util.List;
 
+/**
+ * Contrato del servicio de ventas.
+ *
+ * <p>Define el ciclo de vida completo de una venta:
+ * inicio → agregar líneas → cobrar (o cancelar).
+ * También cubre ventas a crédito, abonos y devoluciones.
+ */
 public interface VentaService {
     Venta iniciarVenta(Long cajeroId) throws PosException;
     Venta agregarLinea(Long ventaId, String codigoBarras, int cantidad) throws PosException;

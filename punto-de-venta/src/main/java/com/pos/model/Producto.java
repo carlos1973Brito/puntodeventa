@@ -4,6 +4,13 @@ import jakarta.persistence.*;
 
 import java.math.BigDecimal;
 
+/**
+ * Entidad que representa un producto del catálogo.
+ *
+ * <p>El campo {@code activo} implementa soft-delete: los productos desactivados
+ * no aparecen en búsquedas ni en el POS, pero se conservan en el historial de ventas.
+ * El campo {@code stockMinimo} dispara alertas visuales en el módulo de inventario.
+ */
 @Entity
 @Table(name = "producto")
 public class Producto {

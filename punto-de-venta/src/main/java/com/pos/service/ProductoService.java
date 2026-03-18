@@ -7,6 +7,10 @@ import com.pos.model.Producto;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * Contrato del servicio de productos.
+ * Cubre CRUD, búsqueda para autocompletado y alertas de stock mínimo.
+ */
 public interface ProductoService {
     Producto crear(ProductoDTO dto) throws PosException;
     Producto actualizar(Long id, ProductoDTO dto) throws PosException;

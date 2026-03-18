@@ -4,6 +4,13 @@ import jakarta.persistence.*;
 
 import java.math.BigDecimal;
 
+/**
+ * Un renglón dentro de una venta: producto, cantidad y precio al momento de la venta.
+ *
+ * <p>Los campos {@code nombreProducto}, {@code precioUnitario} y {@code precioCosto}
+ * se copian del producto en el momento de la venta para preservar el histórico
+ * aunque el producto cambie de precio o sea desactivado posteriormente.
+ */
 @Entity
 @Table(name = "linea_venta")
 public class LineaVenta {

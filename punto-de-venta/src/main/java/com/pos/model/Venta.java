@@ -9,6 +9,19 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Entidad que representa una transacción de venta.
+ *
+ * <p>Ciclo de vida del estado:
+ * <pre>
+ *   EN_CURSO → COMPLETADA  (pago exitoso)
+ *           → CANCELADA    (cancelada antes de cobrar)
+ *           → CREDITO      (venta a crédito/apartado)
+ *   COMPLETADA → DEVUELTA  (devolución posterior)
+ *   CREDITO    → COMPLETADA (cuando saldo_pendiente llega a 0)
+ *   CREDITO    → DEVUELTA
+ * </pre>
+ */
 @Entity
 @Table(name = "venta")
 public class Venta {

@@ -6,6 +6,10 @@ import com.pos.model.Usuario;
 
 import java.util.Optional;
 
+/**
+ * Contrato del servicio de usuarios.
+ * Maneja autenticación BCrypt, bloqueo por intentos fallidos y gestión de cuentas.
+ */
 public interface UsuarioService {
     Usuario crear(UsuarioDTO dto);
     void desactivar(Long id);

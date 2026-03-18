@@ -10,6 +10,12 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
+/**
+ * Contrato de acceso a datos para {@link com.pos.model.Venta}.
+ *
+ * <p>Incluye consultas especializadas para historial, corte de caja,
+ * créditos pendientes y reportes por método de pago.
+ */
 public interface VentaRepository {
     Venta save(Venta v);
     Optional<Venta> findById(Long id);

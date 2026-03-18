@@ -5,6 +5,14 @@ import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
 
+/**
+ * Usuario del sistema POS.
+ *
+ * <p>La contraseña se almacena como hash BCrypt en {@code passwordHash}.
+ * Después de {@code MAX_INTENTOS} (5) fallos consecutivos, la cuenta se bloquea
+ * automáticamente durante 15 minutos ({@code bloqueadoHasta}).
+ * El flag {@code debeCambiarPassword} permite forzar un cambio en el próximo login.
+ */
 @Entity
 @Table(name = "usuario")
 public class Usuario {

@@ -5,6 +5,18 @@ import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
 
+/**
+ * Registro de auditoría de cada cambio en el stock de un producto.
+ *
+ * <p>Se crea automáticamente en tres situaciones:
+ * <ul>
+ *   <li>SALIDA — al completar una venta (por cada línea)</li>
+ *   <li>ENTRADA — al registrar mercancía manualmente o al devolver una venta</li>
+ *   <li>AJUSTE — al corregir el stock manualmente desde el módulo de inventario</li>
+ * </ul>
+ * Los campos {@code stockAnterior} y {@code stockNuevo} permiten reconstruir
+ * el historial completo de inventario.
+ */
 @Entity
 @Table(name = "movimiento_stock")
 public class MovimientoStock {
